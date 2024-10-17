@@ -1,8 +1,14 @@
 from twilio.rest import Client
 from ..ports.messaging_ports import MessagingPort
 from ..domain.messaging_domain import SMSRequest
+from encryption.adapters.encryption_adapter import EncryptionAdapter
+from encryption.application.user_service import UserService
+
 from dotenv import load_dotenv
 import os
+
+encryption_adapter = EncryptionAdapter()
+user_service = UserService(encryption_adapter)
 
 load_dotenv()
 
