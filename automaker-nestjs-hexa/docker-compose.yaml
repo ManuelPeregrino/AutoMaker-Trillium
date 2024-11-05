@@ -2,7 +2,7 @@ version: '3.5'
 services:
   redis:
     image: "redis:alpine"
-    command: redis-server --requirepass redistest
+    command: redis-server --requirepass passwordejemplo
     container_name: redis_archetype_test
     ports:
       - "6379:6379"
@@ -15,7 +15,7 @@ services:
       - 27020:27017
     environment:
       MONGODB_DATABASE: mydatabase
-      MONGO_INITDB_ROOT_USERNAME: cbdiegox    # Usuario root
-      MONGO_INITDB_ROOT_PASSWORD: password123 # Contraseña root
+      MONGO_INITDB_ROOT_USERNAME:     # Usuario root
+      MONGO_INITDB_ROOT_PASSWORD:  # Contraseña root
     volumes:
       - ./mongo:/data/db

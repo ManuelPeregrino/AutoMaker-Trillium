@@ -22,6 +22,7 @@ import { DiscordModule } from '@common/discord/discord.module';
 import { LoggerInterceptor } from '@common/interceptor';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { RateLimiterModule } from './rate-limiter.module';
 import { ExampleResourceModule } from './example-resource/example-resource.module';
 import { TelegramBotModule } from './telegram-bot/telegram-bot.module';
 
@@ -37,9 +38,7 @@ import { TelegramBotModule } from './telegram-bot/telegram-bot.module';
         host: configService.get('REDIS_HOST'),
         port: configService.get('REDIS_PORT'),
         password:
-          process.env.NODE_ENV === 'development'
-            ? configService.get('REDIS_PASSWORD')
-            : undefined,
+          process.env.REDIS_PASSWORD || configService.get('REDIS_PASSWORD'),
         ttl: 780,
       }),
       isGlobal: true,
@@ -62,6 +61,7 @@ import { TelegramBotModule } from './telegram-bot/telegram-bot.module';
     ExampleResourceModule,
     TelegramBotModule,
     DiscordModule,
+    RateLimiterModule,
   ],
   controllers: [AppController],
   providers: [

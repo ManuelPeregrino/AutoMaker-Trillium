@@ -47,6 +47,7 @@
     "cache-manager-redis-store": "^2.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "express-rate-limit": "^7.4.1",
     "graphql": "^16.9.0",
     "mongodb": "^3.7.3",
     "mongoose": "^6.7.0",
