@@ -2,6 +2,7 @@ import os
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from printer.adapters.octoprint_adapter import OctoPrintAdapter
+from printer.adapters.webhook_adapter import WebhookAdapter
 from printer.application.printer_service import PrinterService
 from printer.domain.printer_domain import TemperatureControl, MovementControl
 from messaging.adapters.twilio_adapter import TwilioAdapter
@@ -25,12 +26,19 @@ class UserRequest(BaseModel):
 
 # Inyectar adaptadores y servicios
 octoprint_adapter = OctoPrintAdapter()
-printer_service = PrinterService(octoprint_adapter)
+
+# Configuración del Webhook
+webhook_url = os.getenv("WEBHOOK_URL")  # Asegúrate de definir WEBHOOK_URL en el archivo .env
+webhook_adapter = WebhookAdapter(webhook_url)
+print("Webhook URL:", webhook_url)  # Solo para verificar que esté cargado
+
+# Inicializar el servicio de impresora con el adaptador de OctoPrint y el adaptador de Webhook
+printer_service = PrinterService(octoprint_adapter, webhook_adapter)
+
 twilio_adapter = TwilioAdapter()
 messaging_service = MessagingService(twilio_adapter)
 encryption_adapter = EncryptionAdapter()
 user_service = UserService(encryption_adapter)
-
 
 # Rutas
 
@@ -53,3 +61,11 @@ def send_sms(sms_request: SMSRequest):
 @app.post("/user/create")
 def create_user(user: UserRequest):
     return user_service.create_user(user.username, user.password, user.email, user.phone)
+
+@app.get("/test-webhook")
+def test_webhook():
+    try:
+        response = webhook_adapter.send_status(printer_service.get_status())
+        return {"message": "Webhook enviado", "response": response}
+    except Exception as e:
+        return {"error": str(e)}
