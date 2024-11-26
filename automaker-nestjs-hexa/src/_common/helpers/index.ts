@@ -4,9 +4,6 @@ function capitalizeNamePart(part: string): string {
   return `${part.charAt(0).toUpperCase()}${part.slice(1)}`;
 }
 
-/**
- * Capitalizes all words in a name
- */
 export function capitalizeName(word?: string): string {
   if (!word || !word.length) {
     return '';

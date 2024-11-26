@@ -1,7 +1,5 @@
 export enum ValidaUserResponseCodes {
   Success = '00',
-  // Rut incorrecto
-  IdOrVerifyingDigitError = '998',
   // Canal ingresado es invalido
   InvalidChannel = '0006',
   // Problema Connexion IDG

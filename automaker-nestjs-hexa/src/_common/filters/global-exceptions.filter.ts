@@ -63,7 +63,7 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
         };
 
     const error: ErrorResponse = {
-      message: response?.message ?? 'error inesperado',
+      message: response?.message ?? 'Error no esperado',
       code: status,
     };
 
@@ -78,22 +78,18 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
       timestamp: new Date().toISOString(),
       method: req.method,
       url: req.url,
-      body: req.body,
+      body: req.body?.id ? { id: req.body.id } : undefined, // Solo muestra el ID si está presente
       externalRequest: isAxiosException
         ? {
             method: response.config.method,
             url: response.config.url,
-            data: response.config.data,
+            data: 'Información oculta', // Oculta datos de solicitud externa
           }
         : undefined,
       sql: isQueryFailedError
-        ? {
-            query: exception.query,
-            message: exception.message,
-            parameters: exception.parameters,
-          }
+        ? { message: 'Error de consulta', parameters: 'Datos ocultos' }
         : isEntityNotFoundError
-        ? { exception }
+        ? { exception: 'Entidad no encontrada' }
         : undefined,
     });
 

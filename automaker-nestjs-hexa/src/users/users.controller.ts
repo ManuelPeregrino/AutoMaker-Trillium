@@ -31,7 +31,7 @@ export class UsersController {
   ) {}
 
   @ApiOperation({
-    summary: 'Create a new user',
+    summary: 'Crea un nuevo usuario',
   })
   @ApiBody({
     type: CreateUserRequestDto,
@@ -42,20 +42,19 @@ export class UsersController {
   }
 
   @ApiOperation({
-    summary: 'Get all users',
-    description: 'This request use 1 hour cache',
+    summary: 'Muestra todos los usuarios',
+    description: 'Estos datos están una hora en cache',
   })
   @Get()
   @UseInterceptors(CacheInterceptor)
   @CacheKey('users')
-  // @CacheTTL(60 * 60 * 1) // 60 seconds * 60 minutes * 1 hour
-  @CacheTTL(30)
+  @CacheTTL(30) // 30 segundos
   async findAll() {
     return await this.usersService.findAll();
   }
 
   @ApiOperation({
-    summary: 'Get user by id',
+    summary: 'Obtener usuario por ID',
   })
   @Get(':id')
   async findById(@Param('id') id: string) {
@@ -63,7 +62,7 @@ export class UsersController {
   }
 
   @ApiOperation({
-    summary: 'Update user',
+    summary: 'Actualizar usuario',
   })
   @ApiBody({
     type: UpdateUserRequestDto,
@@ -77,7 +76,7 @@ export class UsersController {
   }
 
   @ApiOperation({
-    summary: 'Delete user',
+    summary: 'Eliminar usuario',
   })
   @Delete(':id')
   async remove(@Param('id') id: string) {

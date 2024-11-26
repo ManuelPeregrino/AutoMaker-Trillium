@@ -25,7 +25,7 @@ export class LoggerInterceptor implements NestInterceptor {
     const { originalUrl, method } = context.switchToHttp().getRequest();
     const { statusCode } = context.switchToHttp().getResponse();
 
-    const dateTime = new Date(Date.now()).toLocaleDateString('es-CL', {
+    const dateTime = new Date(Date.now()).toLocaleDateString('es-MX', {
       weekday: 'short',
       month: '2-digit',
       year: '2-digit',

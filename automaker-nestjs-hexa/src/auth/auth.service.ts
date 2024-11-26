@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   async login(user: any): Promise<any> {
-    user.password = 'xxxxxxx';
+    user.password = '********';
     return {
       access_token: this.jwtService.sign({
         username: user.email,

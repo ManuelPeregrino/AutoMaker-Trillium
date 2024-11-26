@@ -21,7 +21,7 @@ export class TwoFactorAuthController {
 
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Generate QR code to register Two Factor in Authenticator APP',
+    summary: 'Generar código QR para registrar en 2FA APP',
   })
   @UseGuards(JwtRestAuthGuard)
   @Post('generate-qr')
@@ -34,7 +34,7 @@ export class TwoFactorAuthController {
 
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Activate Two Factor Authentication',
+    summary: 'Activar 2FA',
   })
   @ApiBody({
     type: TwoFaAuthDto,
@@ -61,7 +61,7 @@ export class TwoFactorAuthController {
 
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Login With Two Factor Authentication',
+    summary: 'Login con 2FA',
   })
   @ApiBody({
     type: TwoFaAuthDto,

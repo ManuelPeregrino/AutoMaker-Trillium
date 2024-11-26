@@ -12,7 +12,7 @@ describe('TelegramBotService', () => {
     service = module.get<TelegramBotService>(TelegramBotService);
   });
 
-  it('should be defined', () => {
+  it('Should be defined', () => {
     expect(service).toBeDefined();
   });
 });

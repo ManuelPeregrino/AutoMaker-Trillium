@@ -10,6 +10,8 @@ import { TwoFactorAuthService } from './two-factor-auth.service';
 import { AuthController } from './auth.controller';
 import { TwoFactorAuthController } from './two-factor-auth.controller';
 
+import { NotificationsModule } from '@src/notifications/notifications.module';
+
 @Module({
   imports: [
     UsersModule,
@@ -20,6 +22,7 @@ import { TwoFactorAuthController } from './two-factor-auth.controller';
         signOptions: { expiresIn: '600s' },
       }),
     }),
+    NotificationsModule,
   ],
   providers: [
     AuthService,

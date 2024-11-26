@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 
 import { authenticator } from 'otplib';
 import { Response } from 'express';
@@ -12,6 +13,7 @@ import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class TwoFactorAuthService {
   constructor(
+    @Inject('NOTIFICATIONS_SERVICE') private readonly client: ClientProxy,
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
@@ -31,6 +33,14 @@ export class TwoFactorAuthService {
       secret,
       user.userId!,
     );
+
+    // Emitir el evento para el código de confirmación
+    this.client.emit('send_notification', {
+      type: 'confirmation_code',
+      email: user.email,
+      code: secret,
+    });
+
     return {
       secret,
       otpAuthUrl,
@@ -65,7 +75,7 @@ export class TwoFactorAuthService {
       username: email,
       sub: userId,
     };
-    userDB.password = 'xxxxxxx';
+    userDB.password = '********';
     const accessToken = this.jwtService.sign(payload);
 
     return {

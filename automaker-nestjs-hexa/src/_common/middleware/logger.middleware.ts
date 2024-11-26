@@ -21,7 +21,7 @@ export class LoggerMiddleware implements NestMiddleware {
       bodyStr = JSON.stringify(request.body);
     }
 
-    const dateTime = new Date(Date.now()).toLocaleDateString('es-CL', {
+    const dateTime = new Date(Date.now()).toLocaleDateString('es-MX', {
       weekday: 'short',
       month: '2-digit',
       year: '2-digit',

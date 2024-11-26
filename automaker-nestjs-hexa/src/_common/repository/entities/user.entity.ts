@@ -1,5 +1,5 @@
 import { prop } from '@typegoose/typegoose';
-import { RegisterEnum, RoleEnum } from '@enums';
+import { RoleEnum } from '@enums';
 
 export class User {
   @prop({ required: true })
@@ -20,15 +20,12 @@ export class User {
   @prop({ required: false, default: false })
   isTwoFactorEnable: boolean;
 
-  @prop({ required: true, unique: true })
-  public rut: string;
-
   @prop({ required: false, enum: RoleEnum, default: RoleEnum.client })
   public role: string;
 
-  @prop({ required: false, enum: RegisterEnum, default: RegisterEnum.web })
-  public source: string;
-
   @prop({ required: false, default: true })
   public active: boolean;
+
+  @prop({ required: false, default: null })
+  public passwordResetCode: string;
 }

@@ -31,6 +31,12 @@ export class UserRepository {
     return await this.userModel.findByIdAndUpdate(id, payload, { new: true });
   }
 
+  async updateByEmail(email: string, payload: Partial<User>): Promise<User> {
+    return await this.userModel.findOneAndUpdate({ email }, payload, {
+      new: true,
+    });
+  }
+
   async delete(id: string): Promise<User> {
     return await this.userModel.findByIdAndUpdate(
       id,

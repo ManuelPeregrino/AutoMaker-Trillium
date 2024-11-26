@@ -10,24 +10,24 @@ import {
 
 export class CreateUserRequestDto {
   @ApiProperty({
-    description: 'User First Name',
-    example: 'John',
+    description: 'Nombre del Usuario',
+    example: 'Fernando',
   })
   @IsString()
   @IsNotEmpty()
   firstName: string;
 
   @ApiProperty({
-    description: 'User Last Name',
-    example: 'Doe',
+    description: 'Apellidos del Usuario',
+    example: 'Rivera Constantino',
   })
   @IsString()
   @IsNotEmpty()
   lastName: string;
 
   @ApiProperty({
-    description: 'User Email',
-    example: 'mail@example.test',
+    description: 'Correo del Usuario',
+    example: 'correo@ejemplo.test',
   })
   @IsString()
   @IsEmail()
@@ -35,51 +35,40 @@ export class CreateUserRequestDto {
   email: string;
 
   @ApiProperty({
-    description: 'User Password',
-    example: '123456',
+    description: 'Contraseña del Usuario',
+    example: '123456ABC',
   })
   @IsString()
   @IsNotEmpty()
   password: string;
 
   @ApiProperty({
-    description: 'User Source',
-    example: 'web | facebook | google',
-  })
-  @IsOptional()
-  @IsString()
-  @IsIn(['web', 'facebook', 'google'], {
-    message: 'Source must be web, facebook or google',
-  })
-  @IsNotEmpty()
-  source?: string;
-
-  @ApiProperty({
-    description: 'User Rut',
-    example: '12345678-9',
-  })
-  @IsString()
-  @IsNotEmpty()
-  rut: string;
-
-  @ApiProperty({
-    description: 'User Role',
+    description: 'Rol del Usuario',
     example: 'client | admin',
   })
   @IsOptional()
   @IsString()
-  @IsIn(['client', 'admin', 'superAdmin'], {
-    message: 'Role must be client, admin or superAdmin',
+  @IsIn(['client', 'admin'], {
+    message: 'El rol debe ser cliente o administrador',
   })
   @IsNotEmpty()
   role?: string;
 
   @ApiProperty({
-    description: 'User Active',
+    description: 'Estado del Usuario',
     example: 'true | false',
   })
   @IsOptional()
   @IsBoolean()
   @IsNotEmpty()
   active?: boolean;
+
+  @ApiProperty({
+    description: 'Estado del Usuario',
+    example: 'true | false',
+  })
+  @IsOptional()
+  @IsBoolean()
+  @IsNotEmpty()
+  isTwoFactorEnable?: boolean;
 }
